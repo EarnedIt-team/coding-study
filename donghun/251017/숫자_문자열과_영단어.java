@@ -27,7 +27,7 @@ class Solution {
             }
         }
         
-        System.out.println(result.toString());
+        // System.out.println(result.toString());
         
         return Integer.parseInt(result.toString());
     }
