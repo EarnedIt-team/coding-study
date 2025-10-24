@@ -4,13 +4,12 @@ import java.util.*;
 class Solution {
     
     List<Integer> arr = new ArrayList<>();
-    int depth = 0;
     
     public int solution(int k, int[][] dungeons) {
         boolean[] visited = new boolean[dungeons.length];
         
         // dfs 알고리즘으로 가장 깊이가 큰 값을 리턴하는 식으로 ㄱㄱ
-        dfs(k, dungeons, visited, depth);
+        dfs(k, dungeons, visited, 0);
         
         // 내림차순 정렬
         Collections.sort(arr, Collections.reverseOrder());
