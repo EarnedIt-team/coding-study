@@ -20,3 +20,6 @@ class Solution {
         return strings;
     }
 }
+
+// 이렇게도 가능합니다.
+return a.charAt(n) - b.charAt(n) == 0 ? a.compareTo(b) : a.charAt(n) - b.charAt(n);
