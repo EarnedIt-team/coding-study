@@ -27,7 +27,6 @@ class Solution {
         
         // 약수들을 돌아가며 검사
         while(left <= right) {
-            System.out.println("[" + list.get(right) + ", " + list.get(left) + "]");
             if ((list.get(left) - 2) * (list.get(right) - 2) == yellow) {
                 answer[0] = list.get(right);
                 answer[1] = list.get(left);
