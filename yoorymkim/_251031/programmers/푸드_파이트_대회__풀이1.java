@@ -1,8 +1,6 @@
 package _251031.programmers;
 
-import java.util.*;
-
-public class 푸드_파이트_대회 {
+public class 푸드_파이트_대회__풀이1 {
 
     class Solution {
         public String solution(int[] food) {
