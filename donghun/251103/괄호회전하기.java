@@ -16,9 +16,15 @@ class Solution {
             // 올바른 괄호 문자열 확인
             count += checkCorrectString(sb.toString());
             
-            // 문자열 왼쪽으로 회전 (정상 동작 확인)
+            // (방법 1. 객체 계속 재할당하여 수행시간 살짝 김)
+            // 문자열 왼쪽으로 회전 (정상 동작 확인) 
             String rotated = sb.substring(1, sb.length()) + sb.charAt(0);
             sb = new StringBuilder(rotated);
+
+            // (방법 2. 유림님 방법, 수행시간 유의미하게 줄어듦. 재할당 x)
+            // char c = sb.charAt(0);
+            // sb.deleteCharAt(0); 
+            // sb.append(c);
         }
         
         return count;
