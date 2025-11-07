@@ -28,11 +28,9 @@ class Solution {
             stack.push(process[i]);
         }
         
-        int day = 0;
-        
         // 각각 작업 진도 증가
         while(!stack.isEmpty()) {
-            day++;
+
             // 모든 작업 각각의 진도만큼 진척도 증가
             for(int i = 0; i < len; i++) {
                 process[i][0] += process[i][1];
