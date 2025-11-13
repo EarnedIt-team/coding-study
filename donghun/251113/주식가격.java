@@ -23,7 +23,6 @@ class Solution {
                 if(current <= peek) {
                     continue;
                 } else { // 더 작다면
-                    answer[i] = count;
                     break;
                 }
             }
