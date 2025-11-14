@@ -4,7 +4,7 @@ class Solution {
     public int[] solution(int n, String[] words) {
         int[] answer = new int[2];
         
-        // 순서를 보장하는 집합
+        // 중복 체크 set
         Set<String> set = new HashSet<>();
     
         // 마지막 문자
