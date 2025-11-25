@@ -16,6 +16,8 @@ class Solution {
             if( (i+1) <= tmp[i]) {
                 answer = i+1;
                 // System.out.println("현재 순위 : " + (i+1) + " 인용 수 :" + tmp[i]);
+            } else {
+                break;
             }
         }
         
