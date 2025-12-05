@@ -1,8 +1,6 @@
 class Solution {
     public int solution(String s) {
-        int answer = 0;
-        int xCount = 0; // x 글자 횟수
-        int notxCount = 0; // x 글자가 아닌 횟수
+        int answer = 0, xCount = 0, notxCount = 0;
         char x = 0;
 
         for (int i = 0; i < s.length(); i++) {
@@ -19,8 +17,7 @@ class Solution {
             // 두 횟수가 같다면, 분리
             if (xCount == notxCount) {
                 answer++;
-                xCount = 0;
-                notxCount = 0;
+                xCount = 0; notxCount = 0;
             }
         }
 
