@@ -11,7 +11,7 @@ class Solution {
             
             // except 배열의 원소를 제외하고 소거
             str = str.replaceAll("[^" + skill + "]", "");
-            System.out.println("필터링 결과: " + str);
+            // System.out.println("필터링 결과: " + str);
             
             boolean isVaild = true;
             
