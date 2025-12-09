@@ -2,7 +2,7 @@ class Solution {
     public int solution(String skill, String[] skill_trees) {
         // C,B,D를 제외한 모든 문자를 제거 후, 시작 문자가 C인지 검사
         // replaceAll 사용
-        
+         
         int answer = 0;
         
         // skill_trees의 모든 원소에 replaceAll 
