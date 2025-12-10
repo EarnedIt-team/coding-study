@@ -11,7 +11,7 @@ class Solution {
         // 3 vs 30 -> 330 vs 303 (330) 3이 우선
         // 30 vs 34 -> 3034 vs 3430 (3430) 34가 우선
         // ...
-        // 9, 5, 34, 3, 30
+        // 9, 5, 34, 3, 30 
         
         String[] str_nums = new String[numbers.length];
         
