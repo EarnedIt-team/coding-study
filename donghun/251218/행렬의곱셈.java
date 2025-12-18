@@ -21,26 +21,27 @@ class Solution {
         ...
         */
         
-        int x = arr2[0].length;
-        int y = arr1.length;
+        int x = arr2[0].length; // 결과 행렬이 너비는 arr2의 너비를 따라감
+        int y = arr1.length; // 결과 행렬의 높이는 곱해지는 arr1의 높이를 따라감
         
+        // 결과 행렬의 크기로 선언
         int[][] answer = new int[y][x];
         
         for(int i = 0; i < y; i++) {
             for(int j = 0; j < x; j++) {
                 // 행렬의 곱 구현
-                int[] vector1 = arr1[i];
-                int[] vector2 = new int[arr2.length];
+                int[] row = arr1[i];
+                int[] col = new int[arr2.length];
                 
                 // vetor2 는 세로로 접근
                 for(int k = 0; k < arr2.length; k++) {
-                     vector2[k] = arr2[k][j];
+                     col[k] = arr2[k][j];
                 }
                 
                 int sum = 0;
                 // 곱하기
                 for(int mul = 0; mul < arr1[0].length; mul++) {
-                    sum += vector1[mul] * vector2[mul];
+                    sum += row[mul] * col[mul];
                 }
                 
                 // 값 삽입
