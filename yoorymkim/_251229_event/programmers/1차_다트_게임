@@ -1,0 +1,43 @@
+package _251229.programmers;
+
+public class 1차_다트_게임 {
+    class Solution {
+    public int solution(String dartResult) {
+        //StringBuilder sb = new StringBulder();
+        int[] round = new int[3];
+        
+        int sIdx = 0;
+        for (int i = 0; i < round.length; i++) {
+            int score;
+            if (dartResult.charAt(sIdx) == '1' && dartResult.charAt(sIdx+1) == '0') {
+                score = 10; sIdx++;
+            }
+            else score = dartResult.charAt(sIdx) - '0';
+            sIdx++;
+            
+            char bonus = dartResult.charAt(sIdx);
+            if (bonus == 'S') round[i] = score;
+            else if (bonus == 'D') round[i] = score * score;
+            else if (bonus == 'T') round[i] = score * score * score;
+            sIdx++;
+            
+            if (sIdx < dartResult.length() && '*' == dartResult.charAt(sIdx)) {
+                round[i] *= 2;
+                if (i > 0) round[i-1] *= 2;
+                sIdx++;
+            }
+            else if (sIdx < dartResult.length() && '#' == dartResult.charAt(sIdx)) {
+                round[i] *= -1;
+                sIdx++;
+            }
+        }
+        
+        int answer = 0;
+        for (int r : round) {
+            answer += r;
+        }
+        
+        return answer;
+    }
+  }
+}
