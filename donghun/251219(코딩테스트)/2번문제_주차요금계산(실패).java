@@ -51,21 +51,6 @@ class Solution {
             result.add(요금계산(totalTime, 기본시간, 기본요금, 단위시간, 단위요금));
         }
         
-//         for(Map.Entry<String, String[]> entry : map.entrySet()){
-//             // 마지막 기록이 IN 상태일 때 
-//             if(entry.getValue()[1].equals("IN")) {
-//                 int current_diff = Integer.parseInt(entry.getValue()[2]);
-        
-            
-//                 int time_diff = timeToInteger("23:59") - timeToInteger(entry.getValue()[0]);
-//                 result.add(요금계산((time_diff+current_diff), 기본시간, 기본요금, 단위시간, 단위요금));
-                
-//             } else {
-//                 int 누적주차시간 = Integer.parseInt(entry.getValue()[2]);
-//                 result.add(요금계산(누적주차시간, 기본시간 ,기본요금, 단위시간, 단위요금));
-//             }
-//         }
-        
         // 정답 출력
         int[] answer = new int[result.size()];
         for(int i = 0; i < answer.length; i++) {
