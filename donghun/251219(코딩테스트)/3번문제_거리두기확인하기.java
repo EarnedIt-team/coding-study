@@ -8,7 +8,7 @@ class Solution {
             char[][] map = new char[5][5];
             
             for(int j = 0; j < 5; j++) {
-                map[i] = places[i][j].toCharArray();
+                map[j] = places[i][j].toCharArray();
             }
             
             if(check(map)) answer[i] = 1;
