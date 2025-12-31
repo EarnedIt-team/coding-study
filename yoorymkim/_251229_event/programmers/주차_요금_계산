@@ -1,0 +1,56 @@
+package _251229.programmers;
+
+import java.util.*;
+
+public class 주차_요금_계산 {
+  class Solution {
+    public int[] solution(int[] fees, String[] records) {
+        // 차량 번호가 작은 자동차부터 청구할 주차 요금을 차례대로 정수 배열에 담아서 return
+        
+        // key:차번호, val:시각(분단위 환산) // 입차시각only !
+        Map<Integer, Integer> map = new HashMap<>();
+        // key:차번호, val:누적시간(분단위 환산)
+        Map<Integer, Integer> map2 = new TreeMap<>();
+        
+        for (String s : records) {
+            StringTokenizer st = new StringTokenizer(s);
+            
+            String time = st.nextToken();
+            int hour = Integer.parseInt(time.substring(0, 2));
+            int min = Integer.parseInt(time.substring(3, 5));
+            
+            int car = Integer.parseInt(st.nextToken());
+            
+            if (st.nextToken().equals("IN")) {
+                map.put(car, hour*60 + min);
+                map2.putIfAbsent(car, 0);
+            }
+            else {
+                int in = map.get(car);
+                int now = hour*60 + min;
+                
+                map.remove(car); // 입차시간 활용완료 -> 출차
+                map2.put(car, map2.getOrDefault(car, 0) + now - in);
+            }
+        }
+        
+        int[] answer = new int[map2.size()];
+        int i = 0;
+        for (int key : map2.keySet()) {
+            int nu = map2.get(key); // 누적시간
+            if (map.containsKey(key)) {
+                nu += (23*60 + 59) - map.get(key);
+            }
+            
+            // fees : {기본시간, 기본요금, 단위시간, 단위요금}
+            answer[i] = fees[1];
+            if (nu > fees[0]) {
+                answer[i] += ((nu - fees[0] + fees[2] - 1) / fees[2]) * fees[3];
+            }
+            i++;
+        }
+        
+        return answer;
+    }
+  }
+}

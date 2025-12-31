@@ -1,0 +1,53 @@
+package _251229.programmers;
+
+public class 거리두기_확인하기 {
+  class Solution {
+    public int[] solution(String[][] places) {
+        // 두 테이블 T1, T2가 행렬 (r1, c1), (r2, c2)에 각각 위치하고 있다면,
+        // T1, T2 사이의 맨해튼 거리는 |r1 - r2| + |c1 - c2| > 2 여야함
+        // 사람:P, 빈자리:O, 파티션:X
+
+        int[] answer = new int[5];
+        
+        for (int a = 0; a < 5; a++) {
+            String[] place = places[a];
+            
+            // 위부터 훑으며 사람 나오면 아래&양옆 방향으로만 맨해튼거리2까지 탐색
+            for (int i = 0; i < place.length; i++) {
+                for (int j = 0; j < place[0].length(); j++) {
+                    
+                    if (place[i].charAt(j) == 'P') { // 사람 나옴
+                        if (j-2 >= 0 && place[i].charAt(j-2) == 'P') {
+                            if (place[i].charAt(j-1) != 'X') {answer[a] = 1; break;}
+                        }
+                        if (j+2 < 5 && place[i].charAt(j+2) == 'P') {
+                            if (place[i].charAt(j+1) != 'X') {answer[a] = 1; break;}
+                        }
+                        if (i+1 < 5 && j-1 >= 0 && place[i+1].charAt(j-1) == 'P') {
+                            if (place[i+1].charAt(j) != 'X' || place[i].charAt(j-1) != 'X') {answer[a] = 1; break;}
+                        }
+                        if (i+1 < 5 && j+1 < 5 && place[i+1].charAt(j+1) == 'P') {
+                            if (place[i+1].charAt(j) != 'X' || place[i].charAt(j+1) != 'X') {answer[a] = 1; break;}
+                        }
+                        if (i+2 < 5 && place[i+2].charAt(j) == 'P') {
+                            if (place[i+1].charAt(j) != 'X') {answer[a] = 1; break;}
+                        }
+                        
+                        // 무조건 탈락들
+                        if ((i+1 < 5 && place[i+1].charAt(j) == 'P') ||
+                        (j-1 >= 0 && place[i].charAt(j-1) == 'P') ||
+                        (j+1 < 5 && place[i].charAt(j+1) == 'P')) {answer[a] = 1; break;}
+                    }
+                }
+            }
+        }
+        
+        for (int a = 0; a < 5; a++) {
+            if(answer[a] == 1) answer[a] = 0;
+            else answer[a] = 1;
+        }
+        
+        return answer;
+    }
+  }
+}
