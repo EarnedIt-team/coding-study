@@ -1,0 +1,31 @@
+import java.util.*;
+
+class Solution {
+    public String solution(String number, int k) {
+        // 큰 수가 앞에 가는게 더 우선순위임 . 뒤보다 앞이 작으면 앞을 무조건 삭제        
+        // 4177252841, 4
+        // 477252841, 3
+        // 77252841, 2 <- 앞자리보다 뒷자리 큰거 있으면 최대한 앞으로 밀기
+        // 7752841, 1
+        // 775841, 0
+
+        StringBuilder sb = new StringBuilder(number);
+
+        int i = 0; // 검사중인 idx
+        while (k > 0 && i < sb.length() - 1) {
+            if (sb.charAt(i) < sb.charAt(i + 1)) {
+                sb.deleteCharAt(i);
+                k--;
+                if (i > 0) i--; // 앞쪽 다시 비교
+            }
+            else i++;
+        }
+
+        // 987654 내림차순이면 1의자리수 제거
+        while (k > 0) {
+            sb.deleteCharAt(sb.length() - 1); k--;
+        }
+
+        return sb.toString();
+    }
+}
