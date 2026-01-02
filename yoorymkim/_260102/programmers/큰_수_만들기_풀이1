@@ -1,0 +1,45 @@
+import java.util.*;
+
+class Solution {
+    public String solution(String number, int k) {
+        // 결과의 자릿수는 항상 동일 .. 그냥 가장 작은수들부터 k개 빼면 되는 것 아닌가,,? 중복이면 앞부터?
+        // 312212132
+        // 32212132
+        // 3222132
+        // 322232
+        
+        // Map<Character, Integer> map = new HashMap<>(); // key:숫자, val:총갯수
+        
+        int[] numCnt = new int[10]; // idx:숫자, val:총갯수
+        for (int i = 0; i < number.length(); i++) {
+            numCnt[number.charAt(i) - '0']++;
+        }
+        
+        int n = k; // 현재 빼야할 개수
+        for (int i = 0; i < 10; i++) {
+            if (numCnt[i] > 0) { // 숫자가 스트링에 있나
+                if (numCnt[i] <= n) { // 전체 제거
+                    number = number.replace(i + "", "");
+                    n -= numCnt[i];
+                    if (n == 0) break;
+                }
+                else { // 앞부터 제거
+                    StringBuilder sb = new StringBuilder(number);
+                    char iChar = (char) ('0' + i);
+                    
+                    for (int idx = 0; idx < sb.length(); idx++) {
+                        if (sb.charAt(idx) == iChar) {
+                            sb.deleteCharAt(idx);
+                            idx--; n--;
+                        }
+                        if (n == 0) break;
+                    }
+                    number = sb.toString();
+                    break;
+                }
+            }
+        }
+        
+        return number;
+    }
+}
