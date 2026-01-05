@@ -1,0 +1,56 @@
+import java.util.*;
+
+class Solution {
+    public int[] solution(int n) {
+        // n회만큼 감기게 됨 / n = 1,2,3 일때 예외처리 필요
+        // .. -> 일단 문제 흐름대로 풀어보자!
+        
+        if (n == 1) return new int[]{1};
+
+        ArrayList<int[]> list = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+            int[] arr = new int[i];
+            list.add(arr);
+        }
+        
+        int gam = 0; // 감기 횟수
+        int kkub = 0; // 몇번째 껍데기인지 (가장 바깥이 0번째)
+        int num = 0; //숫자
+        while (true) {
+            for (int i = 0; i < n - 3*kkub; i++) { // 아래로 감기
+                num++;
+                list.get(2*kkub + i)[kkub] = num;
+            }
+            gam++;
+            if (gam == n) break;
+            
+            for (int i = 1; i < n - 3*kkub; i++) { // 오른쪽으로 감기
+                num++;
+                list.get(list.size() - 1 - kkub)[i + kkub] = num;
+            }
+            gam++;
+            if (gam == n) break;
+            
+            for (int i = 2; i < n - 3*kkub; i++) { // 위로 감기
+                num++;
+                int listIdx = (list.size()-1) - kkub - (i-1);
+                int arrLen = list.get(listIdx).length;
+                list.get(listIdx)[arrLen - 1 - kkub] = num;
+            }
+            gam++;
+            if (gam == n) break;
+            
+            kkub++;
+        }
+        
+        int[] answer = new int[n * (n + 1) / 2];
+        int idx = 0;
+        for (int[] arr : list) {
+            for (int i : arr) {
+                answer[idx++] = i;
+            }
+        }
+        
+        return answer;
+    }
+}
