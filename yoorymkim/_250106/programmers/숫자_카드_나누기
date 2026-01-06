@@ -1,0 +1,68 @@
+class Solution {
+    public int solution(int[] arrayA, int[] arrayB) {
+        // 어느 한쪽에게만 ! 공약수인 것들 중 ! 가장 큰 수 구하라
+        // >>> 단 !! 그 수로 다른 쪽의 그 어느 원소도 나눌 수 없어야 함 !!
+        // 각 arr의 최대공약수 먼저 찾기, 그 최대공약수의 약수들 저장 후 비교
+        // 숫자가 크고 길이가 길다 ... sqrt 사용, 큰수부터 탐색하기?
+        
+        int aGcd = arrayA[0];
+        for (int i = 1; i < arrayA.length; i++) {
+            aGcd = gcd(aGcd, arrayA[i]);
+        }
+        int bGcd = arrayB[0];
+        for (int i = 1; i < arrayB.length; i++) {
+            bGcd = gcd(bGcd, arrayB[i]);
+        }
+        
+        if (aGcd > bGcd) {
+            for (int i = aGcd; i > 1; i--) {
+                if (aGcd%i == 0 && bGcd%i != 0) {
+                    boolean ans = true;
+                    for (int n : arrayB) {
+                        if (n%i == 0) ans = false;
+                    }
+                    if (ans == true) return i;
+                }
+                else if (aGcd%i != 0 && bGcd%i == 0) {
+                    boolean ans = true;
+                    for (int n : arrayA) {
+                        if (n%i == 0) ans = false;
+                    }
+                    if (ans == true) return i;
+                }
+            }
+        }
+        else if (aGcd < bGcd) {
+            for (int i = bGcd; i > 1; i--) {
+                if (aGcd%i == 0 && bGcd%i != 0) {
+                    boolean ans = true;
+                    for (int n : arrayB) {
+                        if (n%i == 0) ans = false;
+                    }
+                    if (ans == true) return i;
+                }
+                else if (aGcd%i != 0 && bGcd%i == 0) {
+                    boolean ans = true;
+                    for (int n : arrayA) {
+                        if (n%i == 0) ans = false;
+                    }
+                    if (ans == true) return i;
+                }
+            }
+        }
+        else return 0; // 최대공약수가 같다 == 어느한쪽'만' 다 나눠지는 수는 없음
+        
+        return 0;
+    }
+    
+    // 유클리드 호제법 : 2개 수의 최대공약수
+    private int gcd(int a, int b) {
+        while (b != 0) {
+            int r = a % b;
+            a = b;
+            b = r;
+        }
+        return a;
+    }
+    
+}
