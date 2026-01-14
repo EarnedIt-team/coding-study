@@ -1,0 +1,29 @@
+import java.util.*;
+
+class Solution {
+    public int solution(int n, int k, int[] enemy) {
+        // n을 enemy[i]만큼 차감, 그 중 k번은 차감 패스 가능, 차감불가 시점 노카운트 종료 & 최대한 높은 i+1은?
+        // 그리디 가능.. ? 깊우탐? 인덱스 저장 후 정렬? 이건 불가할듯 / 숫자가 굉장히 높다. 깊우탐은 터질듯 .. 
+        // 패스를 언제 쓸지는 미리 정할 수 없지만 이미 지나간 라운드를 기억했다가 패스 쓰기 가능
+        // -> 일단 차감 계속 하다가 차감 불가 시점에 지난 것들 중 제일 높은애 하나씩 디펜스처리하고(수도 되돌리고) 더 차감 가능한지 보기
+        
+        int soldier = n;
+        ArrayList<Integer> used = new ArrayList<>(); // 막은 라운드들
+
+        for (int i = 0; i < enemy.length; i++) {
+            soldier -= enemy[i];
+            used.add(enemy[i]);
+
+            if (soldier < 0) { // 노멀한 차감 불가 시점
+                if (k == 0) return i;
+
+                // 지금까지 중 가장 큰 수는 디펜스처리
+                int max = Collections.max(used);
+                used.remove(Integer.valueOf(max));
+                soldier += max;
+                k--;
+            }
+        }
+        return enemy.length;
+    }
+}
