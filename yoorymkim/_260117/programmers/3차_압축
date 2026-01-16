@@ -1,0 +1,46 @@
+import java.util.*;
+
+class Solution {
+    public int[] solution(String msg) {
+        // LZW 알고릐즘 구현하기
+        // 알파벳 기존 색인번호 : '?'-'A'+1 , 이후 추가는 27부터
+        // 알고리즘구조 : 현재 입력의 인덱스 출력 & '입력+다음글자'를 사전추가
+        // 현재 입력 정의 기준 : 현재 위치에서 사전에 존재하는 가장 긴 문자열
+        
+        Map<String, Integer> map = new HashMap<>(); // key:사전저장된 문자열, val:idx
+        
+        // 기존 알파벳 초기화
+        for (char c = 'A'; c <= 'Z'; c++) {
+            map.put(String.valueOf(c), c - 'A' + 1);
+        }
+        
+        List<Integer> list = new ArrayList<>();
+        int nextIdx = 27;
+        int i = 0;
+        while (i < msg.length()) {
+            String w = "";
+            int j = i;
+            
+            // 현재입력 정의하기
+            while (j < msg.length() && map.containsKey(msg.substring(i, j + 1))) {
+                w = msg.substring(i, j + 1);
+                j++;
+            }
+            
+            list.add(map.get(w)); // 현재입력 색인번호 출력
+            
+            if (j < msg.length()) { // w + 다음글자 사전추가
+                map.put(msg.substring(i, j + 1), nextIdx++);
+            }
+            
+            i += w.length(); // w길이만큼 이동
+        }
+        
+        int[] answer = new int[list.size()];
+        for (int k = 0; k < list.size(); k++) {
+            answer[k] = list.get(k);
+        }
+        
+        return answer;
+    }
+}
