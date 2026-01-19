@@ -1,0 +1,43 @@
+import java.util.*;
+
+class Solution {
+    public int solution(String dirs) {
+        // 경로 저장 Set
+        /// 이미 걸어본 길은 카운트하지않기에 중복을 제거하기 위한 용도로 Set 사용
+        Set<String> visitedPos = new HashSet<>();
+        int curX = 0, curY = 0; // 현재 X, Y 위치
+
+        for (char controlKey : dirs.toCharArray()) {
+            int nextX = curX; // 다음 X 위치
+            int nextY = curY; // 다음 Y 위치
+
+            // 위치 이동
+            if (controlKey == 'U' && curY < 5) nextY++;
+            else if (controlKey == 'D' && curY > -5) nextY--;
+            else if (controlKey == 'R' && curX < 5) nextX++;
+            else if (controlKey == 'L' && curX > -5) nextX--;
+
+            // 좌표 생성 (실제로 좌표가 이동했을 때)
+            // ex. (0, 0) -> (0, 1) 이동하였을 때
+            //     (0, 1) -> (0, 0) 으로 이동하는건 처음 걸어본 길이 아니기 때문에
+            //     그것을 방지하고자, 반대 방향도 함께 저장해둔다.
+            if (curX != nextX || curY != nextY) {
+                String pos = "" + curX + curY + nextX + nextY; // 0001
+                String posR = "" + nextX + nextY + curX + curY; // 0100
+
+                // 만약 새로운 길이라면, 원본 좌표 + 리버스 좌표를 함께 저장
+                if (!visitedPos.contains(pos) || !visitedPos.contains(posR)) {
+                    visitedPos.add(pos);
+                    visitedPos.add(posR);
+                }
+
+                // 현재 위치를 갱신
+                curX = nextX; curY = nextY;
+            }
+        }
+
+        // 처음 걸어본 길의 길이 : Set에 기록된 좌표의 개수 (전부 처음이기에)
+        // Set(원본 좌표 + 리버스 좌표) / 2
+        return visitedPos.size() / 2;
+    }
+}
