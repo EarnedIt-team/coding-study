@@ -1,0 +1,35 @@
+import java.util.*;
+
+class Solution {
+    public int solution(int n, int k) {
+        // 진법 변환 메서드 필요 // 소수 판별 메서드 필요
+        // 진법 변환 0또는 공백(없음)을 기준으로 숫자 가려내기 -> 소수판별 & count (중복도 별개로 count)
+        
+        StringBuilder sb = new StringBuilder();
+        while (n > 0) {
+            sb.append(n % k);
+            n /= k;
+        }
+        sb.reverse();
+        
+        StringTokenizer st = new StringTokenizer(sb.toString(), "0");
+        int answer = 0;
+        while (st.hasMoreTokens()) {
+            int num = Integer.parseInt(st.nextToken());
+            if (isPrime(num)) answer++;
+        }
+        
+        return answer;
+    }
+    
+    // 소수 판별
+    private boolean isPrime(int n){
+        if(n < 2) return false;
+        else{
+            for(int i = 2; i < n; i++){
+                if(n % i == 0) return false;
+            }
+            return true;
+        }
+    }
+}
