@@ -1,0 +1,56 @@
+import java.util.*;
+
+class Solution {
+    public int[] solution(String[] genres, int[] plays) {
+        // 장르별 2개씩 모아서 수록
+        
+        HashMap<String, Integer> totalMap = new HashMap<>(); // key: 장르명, val : 총횟수
+        HashMap<String, int[]> top2Map = new HashMap<>(); // key: 장르명, val : {1위idx, 2위idx}
+        
+        for (int i = 0; i < genres.length; i++) {
+            String name = genres[i];
+            int times = plays[i];
+            
+            if (!totalMap.containsKey(name)) { // 첫등장 장르
+                totalMap.put(name, times);
+                top2Map.put(name, new int[]{i, -1});
+            }
+            else { // 나온적 있는 장르
+                totalMap.put(name, totalMap.get(name) + times); // 총합 누적
+                
+                int[] prev = top2Map.get(name); // 필요시 1,2위 갱신
+                if (times > plays[prev[0]]
+                    || (times == plays[prev[0]] && i < prev[0])) {
+                    prev[1] = prev[0];
+                    prev[0] = i;
+                }
+                else if (prev[1] == -1 || times > plays[prev[1]] ||
+                    (times == plays[prev[1]] && i < prev[1])) {
+                    prev[1] = i;
+                }
+
+                top2Map.put(name, prev);
+            }
+        }
+        
+        List<Map.Entry<String, Integer>> list = new ArrayList<>(totalMap.entrySet());
+        list.sort((a, b) -> b.getValue() - a.getValue()); // totalMap을 val 기준 내림차순 list로 변환
+
+        List<Integer> answerList = new ArrayList<>(); // 정답list
+        int idx = 0;
+        for (Map.Entry<String, Integer> entry : list) { // 정렬된 답을 list에 추가
+            int[] top2 = top2Map.get(entry.getKey());
+            answerList.add(top2[0]);
+            if (top2[1] != -1) { // 두 번째 곡이 있는 경우
+                answerList.add(top2[1]);
+            }
+        }
+        
+        int[] answer = new int[answerList.size()]; // 정답list -> 배열 변환
+        for (int i = 0; i < answer.length; i++) {
+            answer[i] = answerList.get(i);
+        }
+
+        return answer;
+    }
+}
