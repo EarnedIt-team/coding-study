@@ -1,0 +1,35 @@
+import java.util.*;
+
+class Solution {
+    public int solution(int bridge_length, int weight, int[] truck_weights) {
+        // 트럭의 속도 : bridge_length를 1칸씩 배열로 볼 때 1씩 이동하는 그림
+        
+        Queue<Integer> q = new ArrayDeque<>(); // 다리 위 상황
+        
+        int truckIdx = 0; // 출차 필요한 트럭배열 인덱스
+        int answer = 0; // 경과시간
+        int sum = 0; // 현재 다리 위 총 무게
+        
+        // 올릴 트럭 남은 동안만 반복
+        while (truckIdx < truck_weights.length) {
+            if (q.size() >= bridge_length) { // 다리 꽉차면 초당1대 출차
+                sum -= q.poll();
+            }
+
+            if (sum + truck_weights[truckIdx] <= weight) { // 입차 가능
+                q.offer(truck_weights[truckIdx]);
+                sum += truck_weights[truckIdx];
+                truckIdx++;
+            }
+            else { // 무게 초과: 입차 불가
+                q.offer(0); // 무게 0짜리 트럭 있다치고 올리기
+            }
+            
+            answer++;
+        }
+
+        answer += bridge_length;
+        
+        return answer;
+    }
+}
