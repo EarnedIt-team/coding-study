@@ -1,0 +1,26 @@
+import java.util.*;
+
+class Solution {
+    public String solution(int n, int t, int m, int p) {
+        // n진수 이어붙인 후, 1글자씩 idx셀 때 p + a * m (a : 0 ~ t-1) 번째 수 이어붙이기
+        
+        StringBuilder sb = new StringBuilder();
+        int num = 0;
+        int lenCnt = 0;
+        while (lenCnt <= t * m) { // n진수 이어붙이기 : 필요한 만큼보다 살짝 여유둠
+            String s = Integer.toString(num, n);
+            sb.append(s);
+            lenCnt += s.length();
+            num++;
+        }
+        
+        StringBuilder sb2 = new StringBuilder();
+        int tCnt = 0;
+        while (tCnt < t) {
+            sb2.append(sb.charAt((p - 1) + tCnt * m));
+            tCnt++;
+        }
+        
+        return sb2.toString().toUpperCase();
+    }
+}
